@@ -1,0 +1,25 @@
+# Core scientific libraries
+numpy
+pandas
+
+# PyTorch (CPU version)
+torch
+torchvision
+torchaudio
+
+# RL + environment dependencies
+gym
+gym-notices
+
+# Data download
+yfinance
+
+# Visualization
+matplotlib
+seaborn
+
+# Utilities
+tqdm
+
+# Sklearn
+scikit-learn
