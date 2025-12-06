@@ -71,7 +71,7 @@ def compute_sharpe(portfolio_values):
 def main():
     parser = argparse.ArgumentParser(description="Evaluate trained DQN / DDQN agent on test data.")
 
-# Data / env config
+    # Data / env config
     parser.add_argument("--ticker", type=str, default="AAPL")
     parser.add_argument("--initial_amount", type=float, default=ENV_DEFAULTS["initial_amount"])
     parser.add_argument("--hmax", type=int, default=ENV_DEFAULTS["hmax"])
