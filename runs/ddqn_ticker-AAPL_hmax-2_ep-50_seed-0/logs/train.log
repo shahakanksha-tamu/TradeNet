@@ -1,0 +1,63 @@
+[2025-12-06 16:55:57] ========================================
+[2025-12-06 16:55:57] Run: ddqn_ticker-AAPL_hmax-2_ep-50_seed-0
+[2025-12-06 16:55:57] Device: cpu
+[2025-12-06 16:55:57] Episodes=50, eval_interval=5, gamma=0.99, lr=0.001, batch_size=64
+[2025-12-06 16:55:57] Env: initial_amount=100000.0, hmax=2, buy_cost_pct=0.001, sell_cost_pct=0.001, window_size=20, max_pos=1000
+[2025-12-06 16:55:57] ========================================
+[2025-12-06 16:55:57] State dimension: 27, Action dimension: 5
+[2025-12-06 16:55:59] Agent: DDQNAgent with hidden_sizes=(128, 128), buffer_capacity=100000, min_buffer_size=1000
+[2025-12-06 16:55:59] Starting training.
+[2025-12-06 16:56:00] Ep 001/50 | train_final=100472.04 (ret=0.0047) | avg_td_loss=0.4994
+[2025-12-06 16:56:02] Ep 002/50 | train_final=103810.07 (ret=0.0381) | avg_td_loss=0.0837
+[2025-12-06 16:56:04] Ep 003/50 | train_final=102194.68 (ret=0.0219) | avg_td_loss=0.0004
+[2025-12-06 16:56:07] Ep 004/50 | train_final=102704.89 (ret=0.0270) | avg_td_loss=0.0003
+[2025-12-06 16:56:09] Ep 005/50 | train_final=101114.99 (ret=0.0111) | avg_td_loss=0.0003 | val_final=100000.00 (ret=0.0000) (saved best)
+[2025-12-06 16:56:11] Ep 006/50 | train_final=104115.13 (ret=0.0412) | avg_td_loss=0.0002
+[2025-12-06 16:56:14] Ep 007/50 | train_final=102013.01 (ret=0.0201) | avg_td_loss=0.0003
+[2025-12-06 16:56:17] Ep 008/50 | train_final=100830.20 (ret=0.0083) | avg_td_loss=0.0004
+[2025-12-06 16:56:20] Ep 009/50 | train_final=101294.76 (ret=0.0129) | avg_td_loss=0.0003
+[2025-12-06 16:56:22] Ep 010/50 | train_final=100783.30 (ret=0.0078) | avg_td_loss=0.0003 | val_final=100003.15 (ret=0.0000) (saved best)
+[2025-12-06 16:56:24] Ep 011/50 | train_final=102332.28 (ret=0.0233) | avg_td_loss=0.0003
+[2025-12-06 16:56:27] Ep 012/50 | train_final=100752.31 (ret=0.0075) | avg_td_loss=0.0003
+[2025-12-06 16:56:29] Ep 013/50 | train_final=100568.49 (ret=0.0057) | avg_td_loss=0.0003
+[2025-12-06 16:56:31] Ep 014/50 | train_final=102976.67 (ret=0.0298) | avg_td_loss=0.0003
+[2025-12-06 16:56:34] Ep 015/50 | train_final=104169.95 (ret=0.0417) | avg_td_loss=0.0003 | val_final=100000.00 (ret=0.0000)
+[2025-12-06 16:56:36] Ep 016/50 | train_final=105491.06 (ret=0.0549) | avg_td_loss=0.0003
+[2025-12-06 16:56:39] Ep 017/50 | train_final=102219.29 (ret=0.0222) | avg_td_loss=0.0002
+[2025-12-06 16:56:41] Ep 018/50 | train_final=101290.09 (ret=0.0129) | avg_td_loss=0.0002
+[2025-12-06 16:56:43] Ep 019/50 | train_final=101502.97 (ret=0.0150) | avg_td_loss=0.0002
+[2025-12-06 16:56:46] Ep 020/50 | train_final=101281.68 (ret=0.0128) | avg_td_loss=0.0003 | val_final=100000.00 (ret=0.0000)
+[2025-12-06 16:56:48] Ep 021/50 | train_final=101679.28 (ret=0.0168) | avg_td_loss=0.0002
+[2025-12-06 16:56:51] Ep 022/50 | train_final=100352.07 (ret=0.0035) | avg_td_loss=0.0002
+[2025-12-06 16:56:53] Ep 023/50 | train_final=101837.84 (ret=0.0184) | avg_td_loss=0.0002
+[2025-12-06 16:56:55] Ep 024/50 | train_final=104725.42 (ret=0.0473) | avg_td_loss=0.0002
+[2025-12-06 16:56:58] Ep 025/50 | train_final=101424.99 (ret=0.0142) | avg_td_loss=0.0002 | val_final=100000.00 (ret=0.0000)
+[2025-12-06 16:57:00] Ep 026/50 | train_final=102927.91 (ret=0.0293) | avg_td_loss=0.0002
+[2025-12-06 16:57:03] Ep 027/50 | train_final=108453.97 (ret=0.0845) | avg_td_loss=0.0002
+[2025-12-06 16:57:05] Ep 028/50 | train_final=102644.76 (ret=0.0264) | avg_td_loss=0.0002
+[2025-12-06 16:57:08] Ep 029/50 | train_final=104507.27 (ret=0.0451) | avg_td_loss=0.0002
+[2025-12-06 16:57:10] Ep 030/50 | train_final=107025.68 (ret=0.0703) | avg_td_loss=0.0002 | val_final=118496.70 (ret=0.1850) (saved best)
+[2025-12-06 16:57:13] Ep 031/50 | train_final=108029.06 (ret=0.0803) | avg_td_loss=0.0001
+[2025-12-06 16:57:15] Ep 032/50 | train_final=101783.08 (ret=0.0178) | avg_td_loss=0.0002
+[2025-12-06 16:57:18] Ep 033/50 | train_final=104495.09 (ret=0.0450) | avg_td_loss=0.0001
+[2025-12-06 16:57:20] Ep 034/50 | train_final=101865.27 (ret=0.0187) | avg_td_loss=0.0001
+[2025-12-06 16:57:23] Ep 035/50 | train_final=106681.87 (ret=0.0668) | avg_td_loss=0.0001 | val_final=100000.00 (ret=0.0000)
+[2025-12-06 16:57:25] Ep 036/50 | train_final=110965.08 (ret=0.1097) | avg_td_loss=0.0002
+[2025-12-06 16:57:28] Ep 037/50 | train_final=101810.24 (ret=0.0181) | avg_td_loss=0.0001
+[2025-12-06 16:57:30] Ep 038/50 | train_final=103804.68 (ret=0.0380) | avg_td_loss=0.0002
+[2025-12-06 16:57:33] Ep 039/50 | train_final=105200.13 (ret=0.0520) | avg_td_loss=0.0001
+[2025-12-06 16:57:36] Ep 040/50 | train_final=111049.08 (ret=0.1105) | avg_td_loss=0.0002 | val_final=100000.00 (ret=0.0000)
+[2025-12-06 16:57:39] Ep 041/50 | train_final=105482.83 (ret=0.0548) | avg_td_loss=0.0002
+[2025-12-06 16:57:41] Ep 042/50 | train_final=104747.96 (ret=0.0475) | avg_td_loss=0.0001
+[2025-12-06 16:57:44] Ep 043/50 | train_final=107330.06 (ret=0.0733) | avg_td_loss=0.0001
+[2025-12-06 16:57:47] Ep 044/50 | train_final=113383.81 (ret=0.1338) | avg_td_loss=0.0002
+[2025-12-06 16:57:49] Ep 045/50 | train_final=102838.75 (ret=0.0284) | avg_td_loss=0.0002 | val_final=100000.00 (ret=0.0000)
+[2025-12-06 16:57:52] Ep 046/50 | train_final=106963.08 (ret=0.0696) | avg_td_loss=0.0001
+[2025-12-06 16:57:55] Ep 047/50 | train_final=110686.03 (ret=0.1069) | avg_td_loss=0.0001
+[2025-12-06 16:57:57] Ep 048/50 | train_final=106245.56 (ret=0.0625) | avg_td_loss=0.0001
+[2025-12-06 16:58:00] Ep 049/50 | train_final=104982.50 (ret=0.0498) | avg_td_loss=0.0001
+[2025-12-06 16:58:02] Ep 050/50 | train_final=108551.46 (ret=0.0855) | avg_td_loss=0.0001 | val_final=108839.17 (ret=0.0884)
+[2025-12-06 16:58:02] Training completed in 2.06 minutes.
+[2025-12-06 16:58:02] Best validation final value: 118496.70
+[2025-12-06 16:58:02] Best model checkpoint: /Users/riddhighate/TradeNet/runs/ddqn_ticker-AAPL_hmax-2_ep-50_seed-0/checkpoints/best_model.pth
+[2025-12-06 16:58:02] Training metrics CSV: /Users/riddhighate/TradeNet/runs/ddqn_ticker-AAPL_hmax-2_ep-50_seed-0/metrics/train_metrics.csv

@@ -7,8 +7,8 @@ import torch
 import time
 from tradenet.logger import create_logger
 from tradenet.env_single import SingleStockTradingEnv
-from tradenet.agent_ddqn import DDQNAgent
-from tradenet.agent_dqn import DQNAgent
+from tradenet.agents.agent_ddqn import DDQNAgent
+from tradenet.agents.agent_dqn import DQNAgent
 
 from tradenet.config import (
     ENV_DEFAULTS,
