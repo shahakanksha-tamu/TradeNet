@@ -118,7 +118,7 @@ def main():
     for d in [run_dir, logs_dir, metrics_dir, ckpt_dir]:
         os.makedirs(d, exist_ok=True)
 
-    logger = create_logger(run_name, logs_dir)
+    logger = create_logger(run_name, logs_dir, filename="train.log")
 
     logger.info("========================================")
     logger.info(f"Run: {run_name}")

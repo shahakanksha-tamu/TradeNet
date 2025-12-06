@@ -6,7 +6,7 @@ from datetime import datetime
 # Creates a logger for a training or evaluation run.
 # Logs both to console and to a file in LOG_DIR.
 
-def create_logger(run_name, log_dir):
+def create_logger(run_name, log_dir, filename):
 
     logger = logging.getLogger(run_name)
     logger.setLevel(logging.INFO)
@@ -17,7 +17,7 @@ def create_logger(run_name, log_dir):
         return logger
 
     os.makedirs(log_dir, exist_ok=True)
-    log_file = os.path.join(log_dir, "train.log")
+    log_file = os.path.join(log_dir, filename)
 
 
     # Console handler
