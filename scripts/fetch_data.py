@@ -1,43 +1,50 @@
 import argparse
 import os
-import yfinance as yf
-import pandas as pd
+import sys
 
-from tradenet.config import RAW_DATA_DIR
+PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+if PROJECT_ROOT not in sys.path:
+    sys.path.append(PROJECT_ROOT)
 
-# Fetch historical OHLCV data from Yahoo Finance and save as CSV
-def fetch_and_save(ticker: str, start: str, end: str):
+from tradenet.data_loader import YahooDownloader
 
-    df = yf.download(ticker, start=start, end=end, progress=False)
+def main():
+    parser = argparse.ArgumentParser(
+        description="Fetch historical OHLCV data from Yahoo Finance."
+    )
 
-    if df.empty:
-        raise ValueError(f"No data returned for ticker {ticker}. Check the symbol or date range.")
+    parser.add_argument(
+        "--ticker",
+        type=str,
+        required=True,
+        help="Ticker symbol (e.g., AAPL)",
+    )
 
-    df.reset_index(inplace=True)
-    df.rename(columns=str.capitalize, inplace=True)
+    parser.add_argument(
+        "--start",
+        type=str,
+        required=True,
+        help="Start date in YYYY-MM-DD format",
+    )
 
-    os.makedirs(RAW_DATA_DIR, exist_ok=True)
-    save_path = os.path.join(RAW_DATA_DIR, f"{ticker}.csv")
-
-    df.to_csv(save_path, index=False)
-
-    print(f"Downloaded {ticker} data: {len(df)} rows saved to {save_path}")
-
-
-if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Fetch historical OHLCV data from Yahoo Finance.")
-
-    parser.add_argument("--ticker", type=str, required=True,
-                        help="Ticker symbol (e.g., AAPL)")
-    parser.add_argument("--start", type=str, required=True,
-                        help="Start date in YYYY-MM-DD format")
-    parser.add_argument("--end", type=str, required=True,
-                        help="End date in YYYY-MM-DD format")
+    parser.add_argument(
+        "--end",
+        type=str,
+        required=True,
+        help="End date in YYYY-MM-DD format",
+    )
 
     args = parser.parse_args()
 
-    fetch_and_save(
+    loader = YahooDownloader(
+        
         ticker=args.ticker.upper(),
         start=args.start,
-        end=args.end
+        end=args.end,
     )
+
+    loader.fetch_and_save()
+
+
+if __name__ == "__main__":
+    main()

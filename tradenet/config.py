@@ -18,15 +18,16 @@ for d in [DATA_DIR, RAW_DATA_DIR, PROCESSED_DATA_DIR, CHECKPOINT_DIR, LOG_DIR, P
 
 # Default Environment Hyperparameters
 ENV_DEFAULTS = {
-    "initial_amount": 100_000.0,
+    "initial_amount": 100_000.0,      # initial capital
     "hmax": 1,                        # default action granularity - one share per trade
     "buy_cost_pct": 0.001,            # 0.1% transaction fee
     "sell_cost_pct": 0.001,           # 0.1% transaction fee
     "reward_scaling": 1e-4,
     "tech_indicator_list": ["ma20", "ma50", "vol20"],
-    "allow_short": False,           
+    "window_size": 20,
+    "allow_short": False,
+    "max_stock_holdings": 1000,           
 }
-
 
 # Default Agent Hyperparameters (DDQN/DQN)
 AGENT_DEFAULTS = {
