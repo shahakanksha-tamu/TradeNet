@@ -7,14 +7,13 @@ PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 DATA_DIR = os.path.join(PROJECT_ROOT, "data")
 RAW_DATA_DIR = os.path.join(DATA_DIR, "raw")
-PROCESSED_DATA_DIR = os.path.join(DATA_DIR, "processed")
-CHECKPOINT_DIR = os.path.join(PROJECT_ROOT, "checkpoints")
-LOG_DIR = os.path.join(PROJECT_ROOT, "logs")
-PLOT_DIR = os.path.join(PROJECT_ROOT, "plots")
 
-for d in [DATA_DIR, RAW_DATA_DIR, PROCESSED_DATA_DIR, CHECKPOINT_DIR, LOG_DIR, PLOT_DIR]:
+# All run outputs (logs, metrics, checkpoints)
+RUNS_DIR = os.path.join(PROJECT_ROOT, "runs")
+
+# Ensure the base directories exist
+for d in [DATA_DIR, RAW_DATA_DIR, RUNS_DIR]:
     os.makedirs(d, exist_ok=True)
-
 
 # Default Environment Hyperparameters
 ENV_DEFAULTS = {
@@ -26,7 +25,7 @@ ENV_DEFAULTS = {
     "tech_indicator_list": ["ma20", "ma50", "vol20"],
     "window_size": 20,
     "allow_short": False,
-    "max_stock_holdings": 1000,           
+    "max_pos": 1000,           
 }
 
 # Default Agent Hyperparameters (DDQN/DQN)
@@ -35,6 +34,7 @@ AGENT_DEFAULTS = {
     "lr": 1e-3,
     "batch_size": 64,
     "buffer_capacity": 100_000,
+    "min_buffer_size": 1_000,
     "tau": 0.005,                     
     "hidden_sizes": (128, 128),      
 }
@@ -51,5 +51,6 @@ EXPLORATION_DEFAULTS = {
 TRAINING_DEFAULTS = {
     "num_episodes": 250,
     "seed": 0,
+    "eval_interval": 5,
 }
 
