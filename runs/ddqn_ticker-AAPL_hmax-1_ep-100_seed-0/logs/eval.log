@@ -1,0 +1,12 @@
+[2025-12-06 19:08:41] ========================================
+[2025-12-06 19:08:41] Evaluating run: ddqn_ticker-AAPL_hmax-1_ep-100_seed-0
+[2025-12-06 19:08:41] Device: cpu
+[2025-12-06 19:08:41] ========================================
+[2025-12-06 19:08:41] Test env: state_dim=27, action_dim=3
+[2025-12-06 19:08:43] Loaded checkpoint from /Users/riddhighate/TradeNet/runs/ddqn_ticker-AAPL_hmax-1_ep-100_seed-0/checkpoints/best_model.pth
+[2025-12-06 19:08:43] Test episode finished in 0.11 seconds.
+[2025-12-06 19:08:43] Final portfolio value: 91430.54
+[2025-12-06 19:08:43] Total return: -0.0857
+[2025-12-06 19:08:43] Sharpe ratio: -0.2285
+[2025-12-06 19:08:43] Saved test equity curve to: /Users/riddhighate/TradeNet/runs/ddqn_ticker-AAPL_hmax-1_ep-100_seed-0/metrics/test_equity.csv
+[2025-12-06 19:08:43] Saved test summary metrics to: /Users/riddhighate/TradeNet/runs/ddqn_ticker-AAPL_hmax-1_ep-100_seed-0/metrics/test_summary.csv

@@ -6,6 +6,7 @@ import numpy as np
 import torch
 import time
 import json
+import secrets
 from tradenet.logger import create_logger
 from tradenet.env_single import SingleStockTradingEnv
 from tradenet.agents.agent_ddqn import DDQNAgent
@@ -107,6 +108,10 @@ def main():
         f"_hmax-{args.hmax}"
         f"_ep-{args.num_episodes}"
         f"_seed-{args.seed}"
+        f"_window_size-{args.window_size}"
+        f"_lr-{args.lr}"
+        f"_hidden-{'x'.join(map(str, args.hidden_sizes))}"
+        f"_gamma-{args.gamma}"
     )
 
     # Per-run directory layout
