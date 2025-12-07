@@ -1,0 +1,54 @@
+[2025-12-06 19:12:38] ========================================
+[2025-12-06 19:12:38] Evaluating run: ddqn_ticker-AAPL_hmax-1_ep-500_seed-0
+[2025-12-06 19:12:38] Device: cpu
+[2025-12-06 19:12:38] ========================================
+[2025-12-06 19:12:38] Test env: state_dim=27, action_dim=3
+[2025-12-06 19:12:40] No checkpoint found at /Users/riddhighate/TradeNet/runs/ddqn_ticker-AAPL_hmax-1_ep-500_seed-0/checkpoints/best_model.pth. Please train the agent first.
+[2025-12-06 19:39:02] ========================================
+[2025-12-06 19:39:02] Evaluating run: ddqn_ticker-AAPL_hmax-1_ep-500_seed-0
+[2025-12-06 19:39:02] Device: cpu
+[2025-12-06 19:39:02] ========================================
+[2025-12-06 19:39:02] Test env: state_dim=27, action_dim=3
+[2025-12-06 19:39:04] Loaded checkpoint from /Users/riddhighate/TradeNet/runs/ddqn_ticker-AAPL_hmax-1_ep-500_seed-0/checkpoints/best_model.pth
+[2025-12-06 19:39:04] Test episode finished in 0.11 seconds.
+[2025-12-06 19:39:04] Final portfolio value: 91430.54
+[2025-12-06 19:39:04] Total return: -0.0857
+[2025-12-06 19:39:04] Sharpe ratio: -0.2285
+[2025-12-06 19:39:04] Saved test equity curve to: /Users/riddhighate/TradeNet/runs/ddqn_ticker-AAPL_hmax-1_ep-500_seed-0/metrics/test_equity.csv
+[2025-12-06 19:39:04] Saved test summary metrics to: /Users/riddhighate/TradeNet/runs/ddqn_ticker-AAPL_hmax-1_ep-500_seed-0/metrics/test_summary.csv
+[2025-12-06 20:15:12] ========================================
+[2025-12-06 20:15:12] Evaluating run: ddqn_ticker-AAPL_hmax-1_ep-500_seed-0
+[2025-12-06 20:15:12] Device: cpu
+[2025-12-06 20:15:12] ========================================
+[2025-12-06 20:15:12] Test env: state_dim=27, action_dim=3
+[2025-12-06 20:15:14] Loaded checkpoint from /Users/riddhighate/TradeNet/runs/ddqn_ticker-AAPL_hmax-1_ep-500_seed-0/checkpoints/best_model.pth
+[2025-12-06 20:15:14] Test episode finished in 0.11 seconds.
+[2025-12-06 20:15:14] Final portfolio value: 91430.54
+[2025-12-06 20:15:14] Total return: -0.0857
+[2025-12-06 20:15:14] Sharpe ratio: -0.2285
+[2025-12-06 20:15:14] Saved test equity curve to: /Users/riddhighate/TradeNet/runs/ddqn_ticker-AAPL_hmax-1_ep-500_seed-0/metrics/test_equity.csv
+[2025-12-06 20:15:14] Saved test summary metrics to: /Users/riddhighate/TradeNet/runs/ddqn_ticker-AAPL_hmax-1_ep-500_seed-0/metrics/test_summary.csv
+[2025-12-06 20:27:23] ========================================
+[2025-12-06 20:27:23] Evaluating run: ddqn_ticker-AAPL_hmax-1_ep-500_seed-0
+[2025-12-06 20:27:23] Device: cpu
+[2025-12-06 20:27:23] ========================================
+[2025-12-06 20:27:23] Test env: state_dim=27, action_dim=3
+[2025-12-06 20:27:25] Loaded checkpoint from /Users/riddhighate/TradeNet/runs/ddqn_ticker-AAPL_hmax-1_ep-500_seed-0/checkpoints/best_model.pth
+[2025-12-06 20:27:25] Test episode finished in 0.12 seconds.
+[2025-12-06 20:27:25] Final portfolio value: 91430.54
+[2025-12-06 20:27:25] Total return: -0.0857
+[2025-12-06 20:27:25] Sharpe ratio: -0.2285
+[2025-12-06 20:27:25] Saved test equity curve to: /Users/riddhighate/TradeNet/runs/ddqn_ticker-AAPL_hmax-1_ep-500_seed-0/metrics/test_equity.csv
+[2025-12-06 20:27:25] Saved test summary metrics to: /Users/riddhighate/TradeNet/runs/ddqn_ticker-AAPL_hmax-1_ep-500_seed-0/metrics/test_summary.csv
+[2025-12-06 20:57:53] ========================================
+[2025-12-06 20:57:53] Evaluating run: ddqn_ticker-AAPL_hmax-1_ep-500_seed-0
+[2025-12-06 20:57:53] Device: cpu
+[2025-12-06 20:57:53] ========================================
+[2025-12-06 20:57:53] Test env: state_dim=27, action_dim=3
+[2025-12-06 20:57:56] Loaded checkpoint from /Users/riddhighate/TradeNet/runs/ddqn_ticker-AAPL_hmax-1_ep-500_seed-0/checkpoints/best_model.pth
+[2025-12-06 20:57:56] Test episode finished in 0.18 seconds.
+[2025-12-06 20:57:56] Final portfolio value: 91430.54
+[2025-12-06 20:57:56] Total return: -0.0857
+[2025-12-06 20:57:56] Sharpe ratio: -0.2285
+[2025-12-06 20:57:56] Saved test equity curve to: /Users/riddhighate/TradeNet/runs/ddqn_ticker-AAPL_hmax-1_ep-500_seed-0/metrics/test_equity.csv
+[2025-12-06 20:57:56] Saved test summary metrics to: /Users/riddhighate/TradeNet/runs/ddqn_ticker-AAPL_hmax-1_ep-500_seed-0/metrics/test_summary.csv

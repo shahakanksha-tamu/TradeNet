@@ -114,6 +114,10 @@ def main():
         f"_hmax-{args.hmax}"
         f"_ep-{args.num_episodes}"
         f"_seed-{args.seed}"
+        f"_window_size-{args.window_size}"
+        f"_lr-{args.lr}"
+        f"_hidden-{'x'.join(map(str, args.hidden_sizes))}"
+        f"_gamma-{args.gamma}"
     )
 
     run_dir = os.path.join(RUNS_DIR, run_name)

@@ -1,0 +1,27 @@
+{
+    "ticker": "AAPL",
+    "initial_amount": 100000.0,
+    "hmax": 1,
+    "buy_cost_pct": 0.001,
+    "sell_cost_pct": 0.001,
+    "reward_scaling": 0.01,
+    "window_size": 20,
+    "max_pos": 1000,
+    "gamma": 0.99,
+    "lr": 0.001,
+    "batch_size": 64,
+    "buffer_capacity": 100000,
+    "min_buffer_size": 1000,
+    "hidden_sizes": [
+        128,
+        128
+    ],
+    "eps_start": 1.0,
+    "eps_end": 0.05,
+    "eps_decay_steps": 150000,
+    "num_episodes": 100,
+    "eval_interval": 5,
+    "algo": "ddqn",
+    "seed": 0,
+    "device": "cpu"
+}
