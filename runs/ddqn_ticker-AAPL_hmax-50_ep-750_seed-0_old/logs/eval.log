@@ -1,6 +1,0 @@
-[2025-12-06 21:22:48] ========================================
-[2025-12-06 21:22:48] Evaluating run: ddqn_ticker-AAPL_hmax-50_ep-750_seed-0
-[2025-12-06 21:22:48] Device: cpu
-[2025-12-06 21:22:48] ========================================
-[2025-12-06 21:22:48] Test env: state_dim=57, action_dim=101
-[2025-12-06 21:22:49] No checkpoint found at /Users/riddhighate/TradeNet/runs/ddqn_ticker-AAPL_hmax-50_ep-750_seed-0/checkpoints/best_model.pth. Please train the agent first.
