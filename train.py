@@ -5,6 +5,7 @@ import random
 import numpy as np
 import torch
 import time
+import json
 from tradenet.logger import create_logger
 from tradenet.env_single import SingleStockTradingEnv
 from tradenet.agents.agent_ddqn import DDQNAgent
@@ -97,7 +98,6 @@ def main():
 
     args = parser.parse_args()
 
-
     # Setup: seeds, logger, dirs
     set_global_seed(args.seed, args.device)
 
@@ -117,6 +117,16 @@ def main():
 
     for d in [run_dir, logs_dir, metrics_dir, ckpt_dir]:
         os.makedirs(d, exist_ok=True)
+
+    # Save config
+    config_path = os.path.join(run_dir, "config.json")
+    config_data = vars(args).copy()
+
+    # Save to JSON
+    with open(config_path, "w") as f:
+        json.dump(config_data, f, indent=4)
+
+
 
     logger = create_logger(run_name, logs_dir, filename="train.log")
 

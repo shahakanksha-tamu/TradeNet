@@ -43,7 +43,7 @@ def preprocess_raw_data(df):
     df["vol20"] = df["log_return"].rolling(window=20, min_periods=1).std().fillna(0.0)
 
     # Backfill any missing values in moving averages
-    df[["ma20", "ma50"]] = df[["ma20", "ma50"]].fillna(method="bfill")
+    df[["ma20", "ma50"]] = df[["ma20", "ma50"]].bfill()
 
     return df
 

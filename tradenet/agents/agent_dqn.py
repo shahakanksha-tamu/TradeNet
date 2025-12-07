@@ -254,7 +254,7 @@ class DQNAgent:
             'total_steps': self.total_steps,
             'hyperparameters': {
                 'state_dim': self.state_dim,
-                'action_dim': self.action_dim,           # ← CHANGED: Save action_dim
+                'action_dim': self.action_dim,          
                 'gamma': self.gamma,
                 'batch_size': self.batch_size,
                 'eps_start': self.eps_start,
@@ -265,7 +265,7 @@ class DQNAgent:
     
     def load(self, filepath, load_optimizer=True):
         """Load model checkpoint."""
-        checkpoint = torch.load(filepath, map_location=self.device)
+        checkpoint = torch.load(filepath, map_location=self.device, weights_only=True)
         self.q_network.load_state_dict(checkpoint['q_network_state_dict'])
         
         if load_optimizer and 'optimizer_state_dict' in checkpoint:
