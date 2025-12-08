@@ -99,7 +99,7 @@ def main():
     parser.add_argument("--algo", type=str, choices=["dqn", "ddqn"], default="ddqn")
     parser.add_argument("--seed", type=int, default=TRAINING_DEFAULTS["seed"])
     parser.add_argument("--device", type=str, default="cuda" if torch.cuda.is_available() else "cpu")
-
+    parser.add_argument("--eval_interval", type=int, default=TRAINING_DEFAULTS["eval_interval"])
 
     args = parser.parse_args()
 
@@ -116,8 +116,7 @@ def main():
         f"_seed-{args.seed}"
         f"_window_size-{args.window_size}"
         f"_lr-{args.lr}"
-        f"_hidden-{'x'.join(map(str, args.hidden_sizes))}"
-        f"_gamma-{args.gamma}"
+        f"_eval_interval-{args.eval_interval}"
     )
 
     run_dir = os.path.join(RUNS_DIR, run_name)
@@ -141,6 +140,7 @@ def main():
     df_raw = load_raw_ticker_data(args.ticker)
     df_feat = preprocess_raw_data(df_raw)
     df_feat = add_return_trend(df_feat, window=args.window_size)
+    # df_feat = normalize_features(df_feat)
     splits = train_test_val_split(df_feat)
 
     test_df = splits["test_df"]

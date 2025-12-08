@@ -25,6 +25,8 @@ class SingleStockTradingEnv:
         self.tech_indicator_list = list(tech_indicator_list)
         self.window_size = int(window_size)
         self.max_pos = int(max_pos) if max_pos is not None else None
+        self.lambda_dd = 0.05       # downside penalty weight
+        self.lambda_trade = 0.001   # trade/turnover penalty weight
 
         # Number of discrete actions: [-hmax, ..., 0, ..., +hmax]
         self.n_actions = 2 * self.hmax + 1
@@ -181,8 +183,33 @@ class SingleStockTradingEnv:
         new_price = self._get_price()
         self.total_asset_value = self.cash + (self.shares_held or 0) * new_price
 
-        # Reward: change in portfolio value scaled
-        reward = (self.total_asset_value - prev_total_value) * self.reward_scaling
+        # Determine actual executed shares
+        actual_trade_shares = 0
+        
+        if delta_shares > 0:
+            actual_trade_shares = shares_to_buy      
+
+        elif delta_shares < 0:
+            actual_trade_shares = shares_to_sell     
+
+        # Compute new PV
+        new_price = self._get_price()
+        pv_tm1 = prev_total_value
+        pv_t = self.cash + (self.shares_held or 0) * new_price
+
+        # Log-return
+        log_ret = np.log((pv_t / (pv_tm1 + 1e-8)))
+
+        # Downside penalty
+        downside_step = max(0.0, (pv_tm1 - pv_t) / (pv_tm1 + 1e-8))
+
+        # Turnover penalty (actual trade executed)
+        trade_value = actual_trade_shares * new_price
+        turnover = trade_value / (pv_tm1 + 1e-8)
+
+        # Risk-aware reward: log-return - downside - trade penalty
+        reward_raw = log_ret - self.lambda_dd * downside_step - self.lambda_trade * turnover
+        reward = float(np.clip(reward_raw * self.reward_scaling, -0.05, 0.05))
 
         # Book-keeping
         self.asset_memory.append(self.total_asset_value)

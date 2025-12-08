@@ -110,8 +110,7 @@ def main():
         f"_seed-{args.seed}"
         f"_window_size-{args.window_size}"
         f"_lr-{args.lr}"
-        f"_hidden-{'x'.join(map(str, args.hidden_sizes))}"
-        f"_gamma-{args.gamma}"
+        f"_eval_interval-{args.eval_interval}"
     )
 
     # Per-run directory layout
