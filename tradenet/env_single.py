@@ -25,8 +25,8 @@ class SingleStockTradingEnv:
         self.tech_indicator_list = list(tech_indicator_list)
         self.window_size = int(window_size)
         self.max_pos = int(max_pos) if max_pos is not None else None
-        self.lambda_dd = 0.05       # downside penalty weight
-        self.lambda_trade = 0.001   # trade/turnover penalty weight
+        self.lambda_dd = 0.05       
+        self.lambda_trade = 0.001  
 
         # Number of discrete actions: [-hmax, ..., 0, ..., +hmax]
         self.n_actions = 2 * self.hmax + 1
@@ -209,7 +209,7 @@ class SingleStockTradingEnv:
 
         # Risk-aware reward: log-return - downside - trade penalty
         reward_raw = log_ret - self.lambda_dd * downside_step - self.lambda_trade * turnover
-        reward = float(np.clip(reward_raw * self.reward_scaling, -0.05, 0.05))
+        reward = float(np.clip(reward_raw, -0.05, 0.05))
 
         # Book-keeping
         self.asset_memory.append(self.total_asset_value)

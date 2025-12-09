@@ -1,15 +1,3 @@
-"""
-DQN Agent compatible with your teammate's train.py
-Place this file in: tradenet/agents/agent_dqn.py
-
-Key changes from previous version:
-1. Takes action_dim directly (not calculated from hmax)
-2. Uses remember() instead of store_transition()
-3. select_action() uses explore parameter instead of training
-4. Added set_train_mode() and set_eval_mode()
-5. train_step() returns loss directly (no None check needed in train.py)
-"""
-
 import numpy as np
 import torch
 import torch.nn as nn
@@ -26,20 +14,10 @@ from tradenet.replay_buffer import ReplayBuffer
 
 
 class DQNAgent:
-    """
-    DQN Agent compatible with train.py interface.
-    
-    Interface matches your teammate's expectations:
-    - remember(state, action, reward, next_state, done)
-    - select_action(state, explore=True/False)
-    - train_step() returns loss or None
-    - set_train_mode() / set_eval_mode()
-    """
-    
     def __init__(
         self,
         state_dim,
-        action_dim,                    # ← CHANGED: Takes action_dim directly
+        action_dim,                    
         hidden_sizes=(128, 128),
         gamma=None,
         lr=None,
@@ -49,29 +27,11 @@ class DQNAgent:
         eps_start=None,
         eps_end=None,
         eps_decay_steps=None,
-        target_update_freq=None,       # ← NEW: For compatibility (not used in DQN)
+        target_update_freq=None,       
         device='cpu',
         config_override=None
     ):
-        """
-        Initialize DQN Agent.
-        
-        Args:
-            state_dim: Dimension of state space
-            action_dim: Number of possible actions (2*hmax + 1)
-            hidden_sizes: Tuple of hidden layer sizes
-            gamma: Discount factor
-            lr: Learning rate
-            batch_size: Batch size for training
-            buffer_capacity: Replay buffer capacity
-            min_buffer_size: Minimum buffer size before training
-            eps_start: Initial exploration rate
-            eps_end: Final exploration rate
-            eps_decay_steps: Steps to decay epsilon
-            target_update_freq: For DDQN compatibility (unused in DQN)
-            device: 'cpu' or 'cuda'
-            config_override: Dict to override config values
-        """
+
         # Load defaults from config
         agent_config = AGENT_DEFAULTS.copy()
         exploration_config = EXPLORATION_DEFAULTS.copy()
@@ -82,7 +42,7 @@ class DQNAgent:
         
         # Set parameters
         self.state_dim = state_dim
-        self.action_dim = action_dim                    # ← CHANGED: Store action_dim directly
+        self.action_dim = action_dim                    
         
         # Agent hyperparameters
         self.gamma = gamma if gamma is not None else agent_config['gamma']
@@ -112,7 +72,7 @@ class DQNAgent:
         # Training statistics
         self.train_steps = 0
         self.total_steps = 0
-        self.is_training = True                         # ← NEW: Track train/eval mode
+        self.is_training = True                       
         
         # Target update freq (for DDQN compatibility, not used in DQN)
         self.target_update_freq = target_update_freq
@@ -130,38 +90,17 @@ class DQNAgent:
         print(f"  Device: {device}")
     
     def remember(self, state, action, reward, next_state, done):
-        """
-        Store transition in replay buffer.
-        
-        ← CHANGED: Method name from store_transition() to remember()
-        
-        Args:
-            state: Current state
-            action: Action taken
-            reward: Reward received
-            next_state: Next state
-            done: Whether episode ended
-        """
         self.replay_buffer.push(state, action, reward, next_state, done)
         self.total_steps += 1
     
     def select_action(self, state, explore=True):
-        """
-        Select action using epsilon-greedy policy.
-        
-        ← CHANGED: Parameter name from training to explore
-        
-        Args:
-            state: Current state observation
-            explore: If True, use epsilon-greedy; if False, use greedy
-        
-        Returns:
-            action_index: Selected action
-        """
         if explore and random.random() < self.epsilon:
+            
             # Exploration: random action
             action_index = random.randint(0, self.action_dim - 1)
+        
         else:
+            
             # Exploitation: best action
             state_tensor = torch.FloatTensor(state).unsqueeze(0).to(self.device)
             with torch.no_grad():
@@ -171,22 +110,12 @@ class DQNAgent:
         return action_index
     
     def train_step(self):
-        """
-        Perform one training step using experience replay.
-        
-        ← CHANGED: Always returns a loss value (float or None)
-        train.py expects this to handle None explicitly
-        
-        Returns:
-            loss: Training loss (float) or None if buffer too small
-        """
         if len(self.replay_buffer) < self.min_buffer_size:
             return None
         
-        # Sample batch from replay buffer
+        # Sample batch
         states, actions, rewards, next_states, dones = self.replay_buffer.sample(self.batch_size)
         
-        # Convert to tensors
         states = torch.FloatTensor(states).to(self.device)
         actions = torch.LongTensor(actions).to(self.device)
         rewards = torch.FloatTensor(rewards).to(self.device)
@@ -196,7 +125,7 @@ class DQNAgent:
         # Current Q-values: Q(s, a)
         current_q_values = self.q_network(states).gather(1, actions.unsqueeze(1)).squeeze(1)
         
-        # Target Q-values: r + γ max_a' Q(s', a')
+        # Target Q-values
         with torch.no_grad():
             next_q_values = self.q_network(next_states).max(1)[0]
             target_q_values = rewards + (1 - dones) * self.gamma * next_q_values
@@ -212,14 +141,14 @@ class DQNAgent:
         
         self.train_steps += 1
         
-        # Update epsilon (linear decay)
+        # Update epsilon with linear decay
         self._update_epsilon()
         
-        return loss.item()                              # ← Returns float, not None
+        return loss.item()                             
     
     def _update_epsilon(self):
-        """Update epsilon using linear decay."""
         if self.total_steps < self.eps_decay_steps:
+            
             # Linear decay
             decay_progress = self.total_steps / self.eps_decay_steps
             self.epsilon = self.eps_start - (self.eps_start - self.eps_end) * decay_progress
@@ -227,25 +156,15 @@ class DQNAgent:
             self.epsilon = self.eps_end
     
     def set_train_mode(self):
-        """
-        Set agent to training mode.
-        
-        ← NEW: Added for compatibility with train.py
-        """
         self.is_training = True
         self.q_network.train()
     
     def set_eval_mode(self):
-        """
-        Set agent to evaluation mode.
-        
-        ← NEW: Added for compatibility with train.py
-        """
         self.is_training = False
         self.q_network.eval()
     
     def save(self, filepath):
-        """Save model checkpoint."""
+
         torch.save({
             'q_network_state_dict': self.q_network.state_dict(),
             'optimizer_state_dict': self.optimizer.state_dict(),
@@ -264,7 +183,7 @@ class DQNAgent:
         }, filepath)
     
     def load(self, filepath, load_optimizer=True):
-        """Load model checkpoint."""
+ 
         checkpoint = torch.load(filepath, map_location=self.device, weights_only=True)
         self.q_network.load_state_dict(checkpoint['q_network_state_dict'])
         
@@ -285,15 +204,15 @@ class DQNAgent:
         print(f"  Training steps: {self.train_steps}")
         print(f"  Total steps: {self.total_steps}")
     
+    # Get Q-values for all actions for a given state
     def get_action_distribution(self, state):
-        """Get Q-values for all actions for a given state."""
+
         state_tensor = torch.FloatTensor(state).unsqueeze(0).to(self.device)
         with torch.no_grad():
             q_values = self.q_network(state_tensor).cpu().numpy()[0]
         return q_values
     
     def get_config(self):
-        """Return current configuration as dict."""
         return {
             'state_dim': self.state_dim,
             'action_dim': self.action_dim,

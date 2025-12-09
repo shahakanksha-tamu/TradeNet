@@ -2,17 +2,12 @@ import logging
 import os
 from datetime import datetime
 
-    
-# Creates a logger for a training or evaluation run.
-# Logs both to console and to a file in LOG_DIR.
-
 def create_logger(run_name, log_dir, filename):
 
     logger = logging.getLogger(run_name)
     logger.setLevel(logging.INFO)
     logger.propagate = False
 
-    # Prevent duplicate handlers if logger already exists
     if logger.handlers:
         return logger
 

@@ -33,25 +33,7 @@ class DDQNAgent:
         device='cpu',
         config_override=None
     ):
-        """
-        Initialize DDQN Agent.
         
-        Args:
-            state_dim: Dimension of state space
-            action_dim: Number of possible actions
-            hidden_sizes: Tuple of hidden layer sizes
-            gamma: Discount factor
-            lr: Learning rate
-            batch_size: Batch size for training
-            buffer_capacity: Replay buffer capacity
-            min_buffer_size: Minimum buffer size before training
-            eps_start: Initial exploration rate
-            eps_end: Final exploration rate
-            eps_decay_steps: Steps to decay epsilon
-            target_update_freq: Steps between target network updates (DDQN-specific)
-            device: 'cpu' or 'cuda'
-            config_override: Dict to override config values
-        """
         # Load defaults from config
         agent_config = AGENT_DEFAULTS.copy()
         exploration_config = EXPLORATION_DEFAULTS.copy()
@@ -81,15 +63,16 @@ class DDQNAgent:
         buffer_capacity = buffer_capacity if buffer_capacity is not None else agent_config['buffer_capacity']
 
         
-        # Online Q-Network (updated every step)
+        # Online Q-Network
         self.q_network = DQNNetwork(state_dim, action_dim, hidden_sizes).to(device)
         
-        # Target Network (updated periodically for stability)
+        # Target Network
         self.target_network = DQNNetwork(state_dim, action_dim, hidden_sizes).to(device)
-        self.target_network.load_state_dict(self.q_network.state_dict())  # Initialize same as online
-        self.target_network.eval()  # Always in eval mode (no gradient updates)
+
+        self.target_network.load_state_dict(self.q_network.state_dict())  
+        self.target_network.eval() 
         
-        # Optimizer (only for online network)
+        # Optimizer
         self.optimizer = optim.Adam(self.q_network.parameters(), lr=learning_rate)
         self.loss_fn = nn.MSELoss()
         
@@ -117,60 +100,58 @@ class DDQNAgent:
         print(f"  Target update freq: {self.target_update_freq} steps")  # ← DDQN-specific
         print(f"  Device: {device}")
     
+    # Store transition in replay buffer.
     def remember(self, state, action, reward, next_state, done):
-        """Store transition in replay buffer."""
         self.replay_buffer.push(state, action, reward, next_state, done)
         self.total_steps += 1
     
+    # Select action using epsilon-greedy policy.
     def select_action(self, state, explore=True):
-        """Select action using epsilon-greedy policy."""
         if explore and random.random() < self.epsilon:
+            
             # Exploration: random action
             action_index = random.randint(0, self.action_dim - 1)
+        
         else:
+            
             # Exploitation: best action from ONLINE network
             state_tensor = torch.FloatTensor(state).unsqueeze(0).to(self.device)
+            
             with torch.no_grad():
                 q_values = self.q_network(state_tensor)
                 action_index = q_values.argmax().item()
         
         return action_index
     
+    # Perform one training step using Double Q-learning.
     def train_step(self):
-        """
-        Perform one training step using Double Q-learning.
-        """
+    
         if len(self.replay_buffer) < self.min_buffer_size:
             return None
         
         # Sample batch
         states, actions, rewards, next_states, dones = self.replay_buffer.sample(self.batch_size)
         
-        # Convert to tensors
         states = torch.FloatTensor(states).to(self.device)
         actions = torch.LongTensor(actions).to(self.device)
         rewards = torch.FloatTensor(rewards).to(self.device)
         next_states = torch.FloatTensor(next_states).to(self.device)
         dones = torch.FloatTensor(dones).to(self.device)
         
-        # Current Q-values from ONLINE network
+        # Current Q-values from online network
         current_q_values = self.q_network(states).gather(1, actions.unsqueeze(1)).squeeze(1)
         
-        # ============================================================
-        # DOUBLE Q-LEARNING TARGET CALCULATION
-        # ============================================================
+
+        # DDQN Target Q-value computation
         with torch.no_grad():
-            # Step 1: Select best actions using ONLINE network
+            
+            # Select best actions using online network
             next_actions = self.q_network(next_states).argmax(1)
-            #              └─────┬──────┘
-            #          Online network chooses action
-            
-            # Step 2: Evaluate those actions using TARGET network
+                   
+            # Evaluate those actions using target network
             next_q_values = self.target_network(next_states).gather(1, next_actions.unsqueeze(1)).squeeze(1)
-            #               └──────┬───────┘
-            #            Target network evaluates
-            
-            # Step 3: Compute target
+    
+            # Compute target
             target_q_values = rewards + (1 - dones) * self.gamma * next_q_values
         
         # Compute loss and optimize
@@ -192,16 +173,9 @@ class DDQNAgent:
         return loss.item()
     
     def _update_target_network(self):
-        """
-        Update target network with online network weights.
-        
-        This is called every target_update_freq steps.
-        Keeps target network stable while online network learns.
-        """
         self.target_network.load_state_dict(self.q_network.state_dict())
     
     def _update_epsilon(self):
-        """Update epsilon using linear decay."""
         if self.total_steps < self.eps_decay_steps:
             decay_progress = self.total_steps / self.eps_decay_steps
             self.epsilon = self.eps_start - (self.eps_start - self.eps_end) * decay_progress
@@ -209,22 +183,14 @@ class DDQNAgent:
             self.epsilon = self.eps_end
     
     def set_train_mode(self):
-        """Set agent to training mode."""
         self.is_training = True
         self.q_network.train()
-        # Target network always stays in eval mode
     
     def set_eval_mode(self):
-        """Set agent to evaluation mode."""
         self.is_training = False
         self.q_network.eval()
     
     def save(self, filepath):
-        """
-        Save model checkpoint.
-        
-        DDQN saves BOTH networks (online and target).
-        """
         torch.save({
             'q_network_state_dict': self.q_network.state_dict(),
             'target_network_state_dict': self.target_network.state_dict(),  # ← DDQN-specific
@@ -245,20 +211,14 @@ class DDQNAgent:
         }, filepath)
     
     def load(self, filepath, load_optimizer=True):
-        """
-        Load model checkpoint.
-        
-        DDQN loads BOTH networks (online and target).
-        """
+      
         checkpoint = torch.load(filepath, map_location=self.device, weights_only=True)
         
         self.q_network.load_state_dict(checkpoint['q_network_state_dict'])
         
-        # Load target network if available
         if 'target_network_state_dict' in checkpoint:
             self.target_network.load_state_dict(checkpoint['target_network_state_dict'])
         else:
-            # If loading old DQN checkpoint, sync target with online
             self.target_network.load_state_dict(self.q_network.state_dict())
         
         if load_optimizer and 'optimizer_state_dict' in checkpoint:
@@ -278,15 +238,15 @@ class DDQNAgent:
         print(f"  Training steps: {self.train_steps}")
         print(f"  Total steps: {self.total_steps}")
     
+    # Get Q-values for all actions (using online network) 
     def get_action_distribution(self, state):
-        """Get Q-values for all actions (uses online network)."""
         state_tensor = torch.FloatTensor(state).unsqueeze(0).to(self.device)
         with torch.no_grad():
             q_values = self.q_network(state_tensor).cpu().numpy()[0]
         return q_values
     
     def get_config(self):
-        """Return current configuration as dict."""
+
         return {
             'agent_type': 'DDQN',
             'state_dim': self.state_dim,

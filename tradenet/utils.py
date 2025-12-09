@@ -72,8 +72,8 @@ def train_test_val_split(df):
 
     df = df.sort_values("Date").reset_index(drop=True)
 
-    df_train = df[(df["Date"] >= "2015-01-01") & (df["Date"] <= "2020-12-31")].reset_index(drop=True)
-    df_val = df[(df["Date"] >= "2021-01-01") & (df["Date"] <= "2022-12-31")].reset_index(drop=True)
+    df_train = df[(df["Date"] >= "2015-01-01") & (df["Date"] <= "2019-12-31")].reset_index(drop=True)
+    df_val = df[(df["Date"] >= "2020-01-01") & (df["Date"] <= "2022-12-31")].reset_index(drop=True)
     df_test = df[(df["Date"] >= "2023-01-01") & (df["Date"] <= "2024-12-31")].reset_index(drop=True)
 
     if len(df_train) == 0 or len(df_val) == 0 or len(df_test) == 0:

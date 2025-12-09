@@ -111,6 +111,7 @@ def main():
         f"_window_size-{args.window_size}"
         f"_lr-{args.lr}"
         f"_eval_interval-{args.eval_interval}"
+        f"_gamma-{args.gamma}"
     )
 
     # Per-run directory layout
