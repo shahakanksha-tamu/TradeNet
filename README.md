@@ -23,7 +23,9 @@ requirements.txt         # Package Installation Requirements
 ## Setup Instructions
 
 ### 1. Install dependencies
-pip install -r requirements.txt
+```
+pip3 install -r requirements.txt
+```
 
 ## Fetch Stock Data (Required Before Training)
 
