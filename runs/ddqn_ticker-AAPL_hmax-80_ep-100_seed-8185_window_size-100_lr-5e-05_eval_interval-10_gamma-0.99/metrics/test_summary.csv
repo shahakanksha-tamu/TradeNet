@@ -1,0 +1,2 @@
+algo,ticker,seed,final_value,total_return,sharpe
+ddqn,AAPL,8185,194922.75783868408,0.9492275783868407,1.6985508763704849

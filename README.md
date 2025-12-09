@@ -43,28 +43,36 @@ python3 train.py --ticker AAPL
 You may also customize parameters for example:
 
 ```
-python3 eval.py \
+python3 train.py \
   --ticker AAPL \
-  --hmax 100 \
-  --lr 0.0001 \
-  --gamma 0.95 \
-  --num_episodes 150 \
-  --seed 42
+  --algo ddqn
+  --hmax 80 \
+  --window_size 100\
+  --lr 0.00005 \
+  --gamma 0.99 \
+  --num_episodes 100 \
+  --seed 8185
 ```
 
 Training outputs (logs, checkpoints, metrics) will be stored in the runs/ folder.
+
+> Note: The final executable for the DDQN algorithm is located under runs/ddqn_ticker-AAPL_hmax-80_ep-100_seed-8185_window_size-100_lr-5e-05_eval_interval-10_gamma-0.99/checkpoints/
+
 
 ## Evaluate the Trained Model
 
 Be sure to pass the same parameters used while training to generate test results
 ```
+
 python3 eval.py \
   --ticker AAPL \
-  --hmax 100 \
-  --lr 0.0001 \
-  --gamma 0.95 \
-  --num_episodes 150 \
-  --seed 42
+  --algo ddqn
+  --hmax 80 \
+  --window_size 100\
+  --lr 0.00005 \
+  --gamma 0.99 \
+  --num_episodes 100 \
+  --seed 8185
 ```
 
 This returns:
@@ -89,7 +97,7 @@ hyperstudy.pkl
 ## Visualization
 
 ```
-python3 visualize.py --run_dir <relative path to run folder generated while training and evaluation>
+python3 visualize.py --run_dir runs/ddqn_ticker-AAPL_hmax-80_ep-100_seed-8185_window_size-100_lr-5e-05_eval_interval-10_gamma-0.99
 ```
 
 This creates the visualization graphs such as the test-equity curve, train-validation curve, TD-Lose graph and comparison of agent performance against simple baseline buy-and-hold startegy.

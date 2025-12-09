@@ -1,0 +1,12 @@
+[2025-12-08 21:04:13] ========================================
+[2025-12-08 21:04:13] Evaluating run: ddqn_ticker-AAPL_hmax-80_ep-100_seed-8185_window_size-100_lr-5e-05_eval_interval-10_gamma-0.99
+[2025-12-08 21:04:13] Device: cpu
+[2025-12-08 21:04:13] ========================================
+[2025-12-08 21:04:13] Test env: state_dim=107, action_dim=161
+[2025-12-08 21:04:14] Loaded checkpoint from /Users/akankshashah/Documents/TAMU ACAD/DRL/TradeNet/runs/ddqn_ticker-AAPL_hmax-80_ep-100_seed-8185_window_size-100_lr-5e-05_eval_interval-10_gamma-0.99/checkpoints/best_model.pth
+[2025-12-08 21:04:14] Test episode finished in 0.13 seconds.
+[2025-12-08 21:04:14] Final portfolio value: 194922.76
+[2025-12-08 21:04:14] Total return: 0.9492
+[2025-12-08 21:04:14] Sharpe ratio: 1.6986
+[2025-12-08 21:04:14] Saved test equity curve to: /Users/akankshashah/Documents/TAMU ACAD/DRL/TradeNet/runs/ddqn_ticker-AAPL_hmax-80_ep-100_seed-8185_window_size-100_lr-5e-05_eval_interval-10_gamma-0.99/metrics/test_equity.csv
+[2025-12-08 21:04:14] Saved test summary metrics to: /Users/akankshashah/Documents/TAMU ACAD/DRL/TradeNet/runs/ddqn_ticker-AAPL_hmax-80_ep-100_seed-8185_window_size-100_lr-5e-05_eval_interval-10_gamma-0.99/metrics/test_summary.csv
